@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "@/styles/App.module.css";
-import Image from "../components/ImageCard";
-import Search from "../components/Search";
-import { useStore } from "../store/root-store";
+import Image from "../../components/ImageCard";
+import { useStore } from "../../store/root-store";
 import { observer } from "mobx-react";
+import Search from "@/components/Search";
 
-const Home = () => {
+const Collection = () => {
   const {
     galleryStore: { getGalleryData, loadGalleryData },
   } = useStore(null);
@@ -15,22 +15,20 @@ const Home = () => {
   }, []);
 
   return (
-    <>
       <div className={styles.app}>
-        <Search isGallery={true} />
+        <Search isGallery={false} />
 
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.images__container}>
-              {getGalleryData?.map((item, index) => (
-                <Image index={index} key={item?.id} data={item} />
+              {getGalleryData?.filter((item) => item.collection).map((image, index) => (
+                <Image index={index} key={image?.id} data={image} />
               ))}
             </div>
           </div>
         </div>
       </div>
-    </>
   );
 };
 
-export default observer(Home);
+export default observer(Collection);

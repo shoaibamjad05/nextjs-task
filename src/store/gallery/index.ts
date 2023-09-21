@@ -3,7 +3,7 @@ import {
   getGalleryImagesAPI,
   updateGalleryImageAPi,
   uploadNewGalleryImageAPI,
-} from "@/api/gallery";
+} from "@/pages/api/gallery";
 import { toJS } from "mobx";
 import { flow, types } from "mobx-state-tree";
 
@@ -75,10 +75,10 @@ export const galleryStore = types
 
     const addNewImage = flow(function* fetchData(img) {
       const payload = {
-        id: self.data.length + 1,
+        id: Math.floor(Math.random()*90000) + 10000,
         url: img,
         size: "small",
-        tags: ["new"],
+        tags: ["best"],
         collection: false,
       };
       try {
